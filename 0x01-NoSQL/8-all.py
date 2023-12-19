@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This Module contains a a Python function that lists all documents in a collection
 """
