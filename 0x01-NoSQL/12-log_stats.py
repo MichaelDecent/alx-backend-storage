@@ -1,10 +1,25 @@
 #!/usr/bin/env python3
 """
-This Module contain ython function that returns the list of school having a specific topic
+This Module contain a Python script that provides some stats about Nginx logs stored in MongoDB
 """
+from pymongo import MongoClient
 
-def schools_by_topic(mongo_collection, topic):
+def nginx_logs(nginx_collection):
     """
-    returns the list of school having a specific topic
+    provides some stats about Nginx logs stored in MongoDB:
     """
-    return mongo_collection.find({"topics": topic})
+    print(f"{nginx_collection.estimated_document_count()} logs")
+
+    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+    print("Methods:")
+    for method in methods:
+        no_doc = nginx_collection.count_documents({"method": f"{method}"})
+        print(f"\t method {method}: {no_doc}")
+
+    get_path_docs = nginx_collection.count_documents({"method": "GET", "path": "/status"})
+    print(f"{get_path_docs} status check")
+    
+if __name__ == "__main__":
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    nginx_collection = client.logs.nginx
+    nginx_logs(nginx_collection)
