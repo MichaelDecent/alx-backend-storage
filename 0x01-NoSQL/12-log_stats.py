@@ -11,10 +11,10 @@ def nginx_logs(nginx_collection):
     """
     print(f"{nginx_collection.estimated_document_count()} logs")
 
-    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     print("Methods:")
+    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     for method in methods:
-        no_doc = nginx_collection.count_documents({"method": f"{method}"})
+        no_doc = nginx_collection.count_documents({"method": method})
         print(f"\tmethod {method}: {no_doc}")
 
     get_path_docs = nginx_collection.count_documents(
