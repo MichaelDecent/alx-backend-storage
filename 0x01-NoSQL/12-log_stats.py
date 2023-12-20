@@ -4,6 +4,7 @@ This Module contain a Python script that provides some stats about Nginx logs st
 """
 from pymongo import MongoClient
 
+
 def nginx_logs(nginx_collection):
     """
     provides some stats about Nginx logs stored in MongoDB:
@@ -16,10 +17,13 @@ def nginx_logs(nginx_collection):
         no_doc = nginx_collection.count_documents({"method": f"{method}"})
         print(f"\t method {method}: {no_doc}")
 
-    get_path_docs = nginx_collection.count_documents({"method": "GET", "path": "/status"})
+    get_path_docs = nginx_collection.count_documents(
+        {"method": "GET", "path": "/status"}
+    )
     print(f"{get_path_docs} status check")
-    
+
+
 if __name__ == "__main__":
-    client = MongoClient('mongodb://127.0.0.1:27017')
+    client = MongoClient("mongodb://127.0.0.1:27017")
     nginx_collection = client.logs.nginx
     nginx_logs(nginx_collection)
