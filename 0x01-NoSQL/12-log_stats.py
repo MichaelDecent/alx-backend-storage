@@ -15,7 +15,7 @@ def nginx_logs(nginx_collection):
     print("Methods:")
     for method in methods:
         no_doc = nginx_collection.count_documents({"method": f"{method}"})
-        print(f"\t method {method}: {no_doc}")
+        print(f"\tmethod {method}: {no_doc}")
 
     get_path_docs = nginx_collection.count_documents(
         {"method": "GET", "path": "/status"}
