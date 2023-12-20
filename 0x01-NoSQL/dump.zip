@@ -1,3 +1,0 @@
-// Test
-use logs 
-db.nginx.deleteMany({})
